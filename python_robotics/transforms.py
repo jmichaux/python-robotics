@@ -130,11 +130,10 @@ def rot_rpy_mat(roll, pitch=None, yaw=None):
     Return 3D rotation matrix specified by roll, pitch, yaw, euler angles.
 
     Each angle represents a rotation about the FIXED world frame. Roll, pitch,
-    and yaw angles are also known as the XYZ (or sometimes ZYX) Euler angles.
-    Roll is a rotation about the fixed X axis, pitch is a rotation about the
-    fixed Y axis, and yaw is a rotation about the fixed Z axis. Since these
-    rotations are about the fixed world axes, we pre-multiply as indicated
-    below:
+    and yaw angles are also known as the ZYX Euler angles. Roll is a rotation
+    about the fixed X axis, pitch is a rotation about the fixed Y axis, and
+    yaw is a rotation about the fixed Z axis. Since these rotations are about
+    the fixed world axes, we pre-multiply as indicated below:
 
         R = Rot(z, yaw) * Rot(y, pitch) * Rot(x, roll)
 
