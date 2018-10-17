@@ -6,6 +6,35 @@ def rot_inv(R):
     """
     return R.T
 
+def rot2d(vec, theta):
+    """
+    Return vector rotation
+
+    Args
+        vec (ndarray): Vector of len 2
+        theta (float):  angle in radians
+
+    Returns
+        rotated vector (ndarray)
+    """
+    return np.dot(rot2d_mat(theta), vec)
+
+def rot2d_mat(theta):
+    """
+    Return 2D rotation matrix
+
+    Args
+        theta (float): angle in radians
+
+    Returns
+        R: 2D rotation matrix
+    """
+    R = np.array([
+    [np.cos(theta), -np.sin(theta)],
+    [np.sin(theta), np.cos(theta)]
+    ])
+    return R
+
 def rotx(vec, theta):
     """
     Return vector rotation about X axis
