@@ -188,3 +188,22 @@ def is_rot(R, eps=1e-6):
         else:
             return False
     return False
+
+def is_homog(H, eps=1e-6):
+    """
+    Determine if a given matrix is Homogeneous.
+
+    Args
+        H (np.ndarray): 4x4 matrix
+
+    Returns
+        bool: True if H is homogeneous, False otherwise
+    """
+    if not isinstance(H, np.ndarray):
+        raise ValueError('Input should be a numpy array.')
+    if H.shape == (4,4):
+        if is_rot(H[:3, :3]) and H[3][3] == 1.0:
+            return True
+        else:
+            return False
+    return False
