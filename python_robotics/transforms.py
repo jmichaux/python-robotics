@@ -156,3 +156,10 @@ def rot_rpy_mat(roll, pitch=None, yaw=None):
     else:
         Rz = rotz_mat(yaw)
     return Rz.dot(Ry.dot(Rx))
+
+def rot_rpy(vec, roll, pitch=None, yaw=None):
+    """
+    Return a vector after applying roll, pitch,
+    and yaw transformation
+    """
+    return np.dot(rot_rpy_mat(roll, pitch, yaw), vec)
