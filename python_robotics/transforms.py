@@ -124,3 +124,21 @@ def rotz_mat(theta):
     [0, 0, 1]
     ])
     return Rz
+
+def euler_rpy_mat(angles):
+    """
+    3D rotation matrix specified by roll, pitch, yaw, euler angles
+
+    Each angle represents a rotation about the fixed world frame.
+
+    XYZ Euler angles (some books refer to these as ZYX)
+    R = Rot(z,gamma) * Rot(y, beta) * Rot(x, alpha)
+        euler_mat([alpha, beta, gamma], [2, 1, 0])
+
+    Args
+        angles (list or ndarray): Vector of len 3
+
+    Return
+        euler_rpy_mat: 3D rotation matrix
+    """
+    return rotz_mat(angles[2]).dot(roty_mat(angles[1]).dot(rotx_mat(angles[0])))
