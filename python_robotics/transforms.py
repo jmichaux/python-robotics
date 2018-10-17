@@ -125,20 +125,34 @@ def rotz_mat(theta):
     ])
     return Rz
 
-def euler_rpy_mat(angles):
+def rot_rpy_mat(roll, pitch=None, yaw=None):
     """
-    3D rotation matrix specified by roll, pitch, yaw, euler angles
+    Return 3D rotation matrix specified by roll, pitch, yaw, euler angles.
 
-    Each angle represents a rotation about the fixed world frame.
+    Each angle represents a rotation about the FIXED world frame. Roll, pitch,
+    and yaw angles are also known as the XYZ (or sometimes ZYX) Euler angles.
+    Roll is a rotation about the fixed X axis, pitch is a rotation about the
+    fixed Y axis, and yaw is a rotation about the fixed Z axis. Since these
+    rotations are about the fixed world axes, we pre-multiply as indicated
+    below:
 
-    XYZ Euler angles (some books refer to these as ZYX)
-    R = Rot(z,gamma) * Rot(y, beta) * Rot(x, alpha)
-        euler_mat([alpha, beta, gamma], [2, 1, 0])
+        R = Rot(z, yaw) * Rot(y, pitch) * Rot(x, roll)
 
     Args
-        angles (list or ndarray): Vector of len 3
+        roll (float): rotation about X axis
+        pitch (float): rotation about Y axis
+        yaw (float): rotation about Z axis
 
     Return
         euler_rpy_mat: 3D rotation matrix
     """
-    return rotz_mat(angles[2]).dot(roty_mat(angles[1]).dot(rotx_mat(angles[0])))
+    Rx = rotx_mat(roll)
+    if pitch is None:
+        Ry = roty_mat(0)
+    else:
+        Ry = roty_mat(pitch)
+    if yaw is None:
+        Rz = rotz_mat(0)
+    else:
+        Rz = rotz_mat(yaw)
+    return Rz.dot(Ry.dot(Rx))
