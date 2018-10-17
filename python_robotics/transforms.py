@@ -168,6 +168,20 @@ def rot_rpy(vec, roll, pitch=None, yaw=None):
     """
     return np.dot(rot_rpy_mat(roll, pitch, yaw), vec)
 
+def rpy_angles(R):
+    """
+    Return the roll, pitch, and yaw angles
+    for a given rotation matrix.
+    """
+    if is_homog(R):
+        R = R[:3, :3]
+    # TODO: what if R[2][0] is really really small?
+    # Then we'll have a singularity
+    roll = np.arctan2(R[2][1], R[2][2])
+    pitch = np.arctan2(-R[2][0], np.sqrt(R[0][0]**2 + R[1][0]**2))
+    yaw = np.arctan2(R[1][0], R[0][0])
+    return np.array([roll, pitch, yaw])
+
 def is_rot(R, eps=1e-6):
     """
     Determine if a rotation matrix.
