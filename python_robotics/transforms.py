@@ -167,3 +167,24 @@ def rot_rpy(vec, roll, pitch=None, yaw=None):
     For a nice overview see here:
     """
     return np.dot(rot_rpy_mat(roll, pitch, yaw), vec)
+
+def is_rot(R, eps=1e-6):
+    """
+    Determine if a rotation matrix.
+    Returns True if R is a rotation matrix
+
+    Args
+        R (np.ndarray): 3x3 matrix
+
+    Returns
+        bool: True if R is a rotation matrix, False otherwise
+    """
+    if not isinstance(R, np.ndarray):
+        raise ValueError('Input should be a numpy array.')
+    if R.shape == (3,3):
+        # TODO: look into chaning the determinant condition
+        if np.linalg.det(R) == 1.0 and np.linalg.norm(R.dot(R.T) - np.eye(3)) < eps:
+            return True
+        else:
+            return False
+    return False
