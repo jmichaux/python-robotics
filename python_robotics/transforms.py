@@ -137,6 +137,9 @@ def rot_rpy_mat(roll, pitch=None, yaw=None):
 
         R = Rot(z, yaw) * Rot(y, pitch) * Rot(x, roll)
 
+    For a nice overview see here:
+    https://stackoverflow.com/questions/23009549/roll-pitch-yaw-calculation
+
     Args
         roll (float): rotation about X axis
         pitch (float): rotation about Y axis
@@ -160,5 +163,7 @@ def rot_rpy(vec, roll, pitch=None, yaw=None):
     """
     Return a vector after applying roll, pitch,
     and yaw transformation
+
+    For a nice overview see here:
     """
     return np.dot(rot_rpy_mat(roll, pitch, yaw), vec)
