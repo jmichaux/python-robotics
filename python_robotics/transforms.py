@@ -221,3 +221,20 @@ def is_homog(H, eps=1e-6):
         else:
             return False
     return False
+
+def vec_to_so3(omg):
+    """
+    Return a skew symmetric matrix
+    """
+    skew_mat = np.array([
+        [0.0, -omg[2], omg[1]],
+        [omg[2], 0, omg[0]],
+        [-omg[1], omg[0], 0],
+    ])
+    return skew_mat
+
+def so3_to_vec(matrix):
+    """
+    Return vector omega from skew symmetric matrix
+    """
+    return np.array([matrix[2][1], matrix[0][2], matrix[1][0]])
