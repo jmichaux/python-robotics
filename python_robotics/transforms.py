@@ -222,6 +222,23 @@ def is_homog(H, eps=1e-6):
             return False
     return False
 
+def so3_to_se3(R):
+    """
+    Convert rotation matrix to Homogeneous transformation
+    """
+    H = np.vstack((R, np.array([0.,0.,0.])))
+    return np.hstack((H, np.array([0., 0., 0., 1]).reshape(4,1)))
+
+def create_hom_trans(x, y, z, roll, pitch, yaw):
+    """
+    Create Homogeneous transformation matrix
+    """
+    H = so3_to_se3(rot_rpy_mat(roll, pitch, yaw))
+    H[0][3] = x
+    H[1][3] = y
+    H[2][3] = z
+    return H
+
 def vec_to_so3(omg):
     """
     Return a skew symmetric matrix
