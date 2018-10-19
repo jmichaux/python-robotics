@@ -229,7 +229,7 @@ def so3_to_se3(R):
     H = np.vstack((R, np.array([0.,0.,0.])))
     return np.hstack((H, np.array([0., 0., 0., 1]).reshape(4,1)))
 
-def create_hom_trans(x, y, z, roll, pitch, yaw):
+def homog_transform(x, y, z, roll, pitch, yaw):
     """
     Create Homogeneous transformation matrix
 
