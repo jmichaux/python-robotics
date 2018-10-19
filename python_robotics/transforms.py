@@ -232,6 +232,14 @@ def so3_to_se3(R):
 def create_hom_trans(x, y, z, roll, pitch, yaw):
     """
     Create Homogeneous transformation matrix
+
+    Args:
+        x (float): Transformation along x axis
+        y (float): Transformation along y axis
+        z (float): Transformation along z axis
+        roll (float): rotation around fixed x-axis in radians
+        pitch (float): rotation around fixed y-axis in radians
+        yaw (float): rotation around fixed z-axis in radians
     """
     H = so3_to_se3(rot_rpy_mat(roll, pitch, yaw))
     H[0][3] = x
