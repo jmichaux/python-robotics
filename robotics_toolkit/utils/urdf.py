@@ -36,7 +36,6 @@ class Joint():
         """
         roll, pitch, yaw = self.get_rpy()
         x, y, z = self.get_xyz()
-        print(self.name, x,y,z)
         H1 = homog_transform(x, y, z, roll, pitch, yaw)
         if self.type == 'revolute':
             ax = self.get_axis()
@@ -123,24 +122,3 @@ class URDFChain():
                 chain = [prev_joint] + chain
         return [Joint(joint) for joint in chain]
 
-    def forward_kinematics(self, joint_positions, world_transform=None):
-        """
-        Return forward kinematics
-        """
-        assert (len(joint_positions) == self.n_active)
-        if world_transform:
-            H = world_transform
-        else:
-            H = np.eye(4)
-        j = 0
-        for i in range(len(self._all_joints)):
-            if self._all_joints[i].type == "revolute":
-                theta = joint_positions[j]
-                j += 1
-            else:
-                theta = 0
-            H = H.dot(self._all_joints[i].transform(theta))
-        return H
-
-    def inverse_kinematics(self, ee_pos, ee_orn=None):
-        rasie NotImplentedError()
